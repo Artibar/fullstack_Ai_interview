@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import axiosInstance from '../utils/axios'
 import {AuthContext} from "../context/authContextProvider.jsx"
 
-
+const baseURL = import.meta.env.MODE ==="development"? "http://localhost:3000": ""
 const Login = () => {
   const [form, setForm] = useState({
     email:"",
@@ -27,7 +27,7 @@ const Login = () => {
     setError("")
     setIsLoading(true)
     try {
-      const response = await axiosInstance.post('http://localhost:3000/auth/login', {...form})
+      const response = await axiosInstance.post(`${baseURL}/auth/login`, {...form})
       const { token } = response.data;
       if(token){
         localStorage.setItem("token", token)

@@ -5,6 +5,8 @@ import { useState } from "react"
 import axiosInstance from "../utils/axios.js"
 import {AuthContext} from "../context/authContextProvider.jsx"
 
+
+const baseURL = import.meta.env.MODE ==="development"? "http://localhost:3000": ""
 const Signup = () => {
 
   const [form, setForm] = useState({
@@ -34,7 +36,7 @@ const Signup = () => {
     setError("")
     setIsLoading(true)
     try {
-      const response = await axiosInstance.post("http://localhost:3000/auth/signup", {...form})
+      const response = await axiosInstance.post(`${baseURL}/auth/signup`, {...form})
       const {token } = response.data
       if (token) {
         localStorage.setItem("token", token)
