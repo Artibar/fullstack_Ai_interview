@@ -4,7 +4,7 @@ import connectToDB from "./config/db.js";
 import express from "express"
 import path from 'path'
 import cors from "cors";
-
+import { fileURLToPath } from 'url';
 
 
 import authRouter from "./routes/authRoutes.js"
@@ -45,7 +45,7 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'))
     })
 }
-
+const __filename = fileURLToPath(import.meta.url);
 
 
 const PORT = process.env.PORT || 3000;
