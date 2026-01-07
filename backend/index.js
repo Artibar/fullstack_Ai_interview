@@ -2,7 +2,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import connectToDB from "./config/db.js";
 import express from "express"
-
+import path from 'path'
 import cors from "cors";
 
 
@@ -37,10 +37,19 @@ app.use('/question', questionRouter)
 
 app.post('/ai/generate-questions', protectRoute, generateInterviewQuestion)
 app.post('/ai/generate-explanation', protectRoute, generateConceptExplanation)
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '../frontend/dist')))
+
+
+    app.get('/*', (req, res)=>{
+        res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'))
+    })
+}
 
 
 
 const PORT = process.env.PORT || 3000;
+const __dirname = path.resolve()
 
 app.listen(PORT, ()=>{
     connectToDB()
