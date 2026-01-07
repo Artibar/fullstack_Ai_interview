@@ -54,8 +54,8 @@ if (fs.existsSync(distPath)) {
     
     app.use(express.static(distPath));
     
-    app.use('(.*)', (req, res) => {
-        res.sendFile(path.join(distPath, 'index.html'));
+    app.use((req, res) => {
+       res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
     });
 } else {
     console.log("❌ DIST FOLDER NOT FOUND!");
